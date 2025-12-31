@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  xdcc-telegram-bot:
+    container_name: xdcc-telegram-bot
+    build: /srv/apps/xdcc-telegram-bot
+    env_file:
+      - /srv/compose/xdcc-telegram-bot/.env
+
+    volumes:
+      - /srv/appdata/xdcc-telegram-bot/logs:/app/logs
+
+      # Twoje foldery Jellyfin:
+      - /srv/nas/movies/FILMY:/media/filmy:rw
+      - /srv/nas/movies/SERIALE:/media/seriale:rw
+      - /srv/nas/movies/INNE:/media/inne:rw
+
+    networks:
+      proxy:
+    restart: unless-stopped
+
+networks:
+  proxy:
+    external: true
